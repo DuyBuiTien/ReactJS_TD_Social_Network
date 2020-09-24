@@ -4,11 +4,14 @@ import * as actions from '../_redux/friendsActions';
 import {FriendDeleteDialog} from './FriendDeleteDialog';
 import "./Friends.scss"
 import { Form, Button } from 'react-bootstrap';
+import { useHistory } from "react-router-dom"
 
 import {FriendsItem} from './FriendsItem'
 
 
 const Friends = props => {
+
+  const history = useHistory()
 
   const [show, setShow] = useState(false);
   const [key, setKey] = useState('');
@@ -37,8 +40,7 @@ const Friends = props => {
   };
 
   const TroChuyen = dataItem => {
-    console.log('tro chuyen');
-    console.log(dataItem);
+    history.push(`/chat/${dataItem.username}`)
   };
 
   const HuyKetBan = () => {
