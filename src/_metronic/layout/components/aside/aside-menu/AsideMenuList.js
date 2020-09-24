@@ -1,6 +1,7 @@
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { useLocation } from 'react-router';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import SVG from 'react-inlinesvg';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -13,6 +14,7 @@ function AsideMenuList({ layoutProps }) {
     return checkIsActive(location, url) ? ` ${!hasSubmenu && 'menu-item-active'} menu-item-open ` : '';
   };
 
+  const { user } = useSelector(state => state.auth);
   return (
     <>
       {/* begin::Menu Nav */}
@@ -45,8 +47,8 @@ function AsideMenuList({ layoutProps }) {
         {/*end::1 Level*/}
 
         {/*begin::1 Level*/}
-        <li className={`menu-item ${getMenuItemActive('/profile', false)}`} aria-haspopup="true">
-          <NavLink className="menu-link" to="/profile">
+        <li className={`menu-item ${getMenuItemActive(`/profile/${user.username}`, false)}`} aria-haspopup="true">
+          <NavLink className="menu-link" to={`/profile/${user.username}`}>
             <span className="svg-icon menu-icon">
               <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />

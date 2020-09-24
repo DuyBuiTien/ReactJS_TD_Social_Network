@@ -12,6 +12,8 @@ const ECommercePage = lazy(() => import('./modules/ECommerce/pages/eCommercePage
 const NewfeedPage = lazy(() => import('./modules/Newsfeed/pages/NewsfeedPage'));
 const FriendsPage = lazy(() => import('./modules/Friends/pages/friendsPage'));
 const ChatsPage = lazy(() => import('./modules/Chats/pages/chatPage'));
+const GroupPage = lazy(() => import('./modules/Group/pages/GroupPage'));
+const ProfilePage = lazy(() => import('./modules/Profile/pages/ProfilePage'));
 const GroupPage = lazy(() => import('./modules/Group/pages/GroupPage'))
 const EventPage = lazy(() => import('./modules/Event/pages/EventPage'))
 
@@ -39,6 +41,7 @@ export default function BasePage() {
         <Route path="/friends" component={FriendsPage} />
         <Route path="/chat" component={ChatsPage} />
         <Route path="/groups" component={GroupPage}/>
+        <Route path="/profile" component={ProfilePage}/>
         <Route path="/events" component={EventPage}/>
 
         <Redirect to="error/error-v1" />
