@@ -4,14 +4,15 @@ import {useSelector} from 'react-redux';
 import PostItem from './PostItem';
 
 import datademo from '../_data/data.json';
+import {requestGET, GLOBAL_URL} from '../../../basic/basicApi'
 
 const ListPost = props => {
   const {user} = useSelector(state => state.auth);
 
   const [loadMore, setLoadMore] = useState(true);
 
-  const [data, setData] = useState(datademo.data.findPostListInTimeline);
-
+  //const [data, setData] = useState([]);
+  const [data, setData] = useState([]);
   useEffect(() => {
     getData(loadMore);
     setLoadMore(false);
@@ -45,17 +46,12 @@ const ListPost = props => {
     }
   }, [props.state]);
 
-  const getData = load => {
+  const getData = async load => {
     if (load) {
-      /*   fetch('https://dog.ceo/api/breeds/image/random/15')
-        .then(res => {
-          return !res.ok 
-          ? res.json().then(e => Promise.reject(e)) 
-          : res.json();
-        })
-        .then(res => {
-          props.setState([...props.state, ...res.message]);
-        }); */
+      var data = await requestGET(`${GLOBAL_URL}v1/post/GetListPost?page=0&perpage=20`);
+      setData(data.data)
+    }else{
+      setData(datademo.data.findPostListInTimeline)
     }
   };
 
