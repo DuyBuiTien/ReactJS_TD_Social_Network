@@ -47,6 +47,20 @@ export const friendsSlice = createSlice({
       state.entities = entities;
       state.totalCount = totalCount;
     },
+    friendsSearchFetched: (state, action) => {
+      const {totalCount, entities} = action.payload;
+      state.actionsLoading = false;
+      state.error = null;
+      state.entities = entities;
+      state.totalCount = totalCount;
+    },
+    startSearch: (state, action) => {
+      const {totalCount, entities} = action.payload;
+      state.listLoading = false;
+      state.error = null;
+      state.entities = entities;
+      state.totalCount = totalCount;
+    },
     // createProduct
     productCreated: (state, action) => {
       state.actionsLoading = false;
@@ -68,7 +82,42 @@ export const friendsSlice = createSlice({
     huyKetBaned: (state, action) => {
       state.error = null;
       state.actionsLoading = false;
-      state.entities = state.entities.filter(el => el.id !== action.payload.id);
+      state.entities = state.entities.filter(el => el.datacontact.id !== action.payload.id);
+    },
+    dongYKetBaned: (state, action) => {
+      state.error = null;
+      state.actionsLoading = false;
+      state.entities = state.entities.filter(el => el.datacontact.id !== action.payload.id);
+    },
+    huyKetBanedS: (state, action) => {
+      state.error = null;
+      state.actionsLoading = false;
+      state.entities = state.entities.map(entity => {
+        if (action.payload.username === entity.username) {
+          entity.type = 'notContact';
+        }
+        return entity;
+      });
+    },
+    dongYKetBanedS: (state, action) => {
+      state.error = null;
+      state.actionsLoading = false;
+      state.entities = state.entities.map(entity => {
+        if (action.payload.username === entity.username) {
+          entity.type = 'contact';
+        }
+        return entity;
+      });
+    },
+    KetBaned: (state, action) => {
+      state.error = null;
+      state.actionsLoading = false;
+      state.entities = state.entities.map(entity => {
+        if (action.payload.username === entity.username) {
+          entity.type = 'requestsent';
+        }
+        return entity;
+      });
     },
     // deleteProducts
     productsDeleted: (state, action) => {
