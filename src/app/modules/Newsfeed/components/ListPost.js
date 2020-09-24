@@ -48,6 +48,7 @@ const ListPost = props => {
 
   const getData = async load => {
     if (load) {
+      //list of post
       var data = await requestGET(`${GLOBAL_URL}v1/post/GetListPost?page=0&perpage=20`);
       setData(data.data)
     }else{
