@@ -49,10 +49,8 @@ const ListPost = props => {
   const getData = async load => {
     if (load) {
       //list of post
-      var data = await requestGET(`${GLOBAL_URL}v1/post/GetListPost?page=0&perpage=20`);
+      var data = await requestGET(`${GLOBAL_URL}/v1/post/GetListPost?page=0&perpage=20`);
       setData(data.data)
-    }else{
-      setData(datademo.data.findPostListInTimeline)
     }
   };
 
@@ -60,7 +58,7 @@ const ListPost = props => {
     <>
       <div id="list">
         {data.map((item, i) => (
-          <PostItem key={i} itemData={item} />
+          <PostItem key={i} itemData={item} load = {loadMore} setLoad = {setLoadMore}  />
         ))}
       </div>
     </>

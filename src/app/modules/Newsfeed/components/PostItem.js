@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {useSelector} from 'react-redux';
 import {NavLink} from 'react-router-dom';
 
@@ -7,7 +7,6 @@ import {PostInfo, PostContent, PostStatus, PostComment, Comment} from './PostIte
 const PostItem = props => {
   const {itemData} = props;
   const {user} = useSelector(state => state.auth);
-
   return (
     <div className="card card-custom gutter-b feed-item">
       <div className="card-body">
@@ -16,13 +15,13 @@ const PostItem = props => {
 
         <div className="separator separator-solid mt-2 mb-4" />
 
-        <PostStatus data={itemData} />
+        <PostStatus data={itemData} load= {props.load} setLoad = {props.setLoad} />
 
         <div className="separator separator-solid mt-2 mb-4" />
 
-        <PostComment data={itemData} />
+        <PostComment data={itemData} load= {props.load} setLoad = {props.setLoad}/>
 
-        <Comment data={itemData} />
+        <Comment data={itemData} setLoad = {props.setLoad} />
       </div>
       {/*end::Body*/}
     </div>

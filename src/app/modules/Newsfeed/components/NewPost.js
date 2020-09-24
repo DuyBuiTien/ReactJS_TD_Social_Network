@@ -19,7 +19,7 @@ const NewPost = props => {
   useEffect(() => {
     const fectchGroupData = async()=>{
       // get list group by this user
-      var res = await requestGET(`${GLOBAL_URL}v1/group/ListGroup`);
+      var res = await requestGET(`${GLOBAL_URL}/v1/group/ListGroup`);
       setGroupData(res.data)
     }
     fectchGroupData()
@@ -36,7 +36,7 @@ const NewPost = props => {
       ],
     }
     console.log(newData)
-    var result = await requestPOST(`${GLOBAL_URL}v1/post/CreatePost`, newData).then(res => {
+    var result = await requestPOST(`${GLOBAL_URL}/v1/post/CreatePost`, newData).then(res => {
       return res
     })
     console.log(result)
