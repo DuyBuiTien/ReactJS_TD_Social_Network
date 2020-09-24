@@ -4,10 +4,7 @@ import {Tabs, Tab, Row, Col, Nav} from 'react-bootstrap';
 import {Redirect, Switch, Route, Link, NavLink} from 'react-router-dom';
 
 import Friends from '../components/Friends';
-
-const TimKiem = props => {
-  return <input type="text" class="form-control" name="searchText" placeholder="Search" value=""></input>;
-};
+import FriendsSearch from '../components/FriendsSearch';
 
 export default function NewsPage() {
   return (
@@ -15,23 +12,23 @@ export default function NewsPage() {
       <div className="position-relative px-20">
         <Nav className="nav nav-tabs nav-tabs-line" defaultActiveKey="/friends/contact">
           <Nav.Item className="nav-item mr-14 mt-4">
-            <NavLink className=" nav-link font-size-h5 font-weight-bold border-2 pb-6 mx-0" to="/friends/contact">
-              Bạn bè
+            <NavLink className=" nav-link font-size-h5 border-2 pb-6 mx-0" to="/friends/contact">
+              Tất cả bạn bè
             </NavLink>
           </Nav.Item>
           <Nav.Item className="nav-item mr-14 mt-4">
-            <NavLink className=" nav-link font-size-h5 font-weight-bold border-2 pb-6 mx-0" to="/friends/request">
-              Danh sách kết bạn
+            <NavLink className=" nav-link font-size-h5 border-2 pb-6 mx-0" to="/friends/request">
+              Lời mời kết bạn
             </NavLink>
           </Nav.Item>
           <Nav.Item className="nav-item mr-14 mt-4">
-            <NavLink className=" nav-link font-size-h5 font-weight-bold border-2 pb-6 mx-0" to="/friends/requestsent">
+            <NavLink className=" nav-link font-size-h5 border-2 pb-6 mx-0" to="/friends/requestsent">
               Danh sách chờ kết bạn
             </NavLink>
           </Nav.Item>
           <Nav.Item className="nav-item mr-14 mt-4">
-            <NavLink className=" nav-link font-size-h5 font-weight-bold border-2 pb-6 mx-0" to="/friends/search">
-              Tìm kiếm
+            <NavLink className=" nav-link font-size-h5 border-2 pb-6 mx-0" to="/friends/search">
+              Tìm kiếm bạn bè
             </NavLink>
           </Nav.Item>
         </Nav>
@@ -48,7 +45,9 @@ export default function NewsPage() {
             <Friends type={'requestsent'} />
           </Route>
 
-          <Route path="/friends/search" component={TimKiem} />
+          <Route path="/friends/search" >
+            <FriendsSearch />
+          </Route>
         </Switch>
       </div>
     </div>

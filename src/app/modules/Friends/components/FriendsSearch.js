@@ -3,19 +3,21 @@ import {shallowEqual, useDispatch, useSelector} from 'react-redux';
 import * as actions from '../_redux/friendsActions';
 import {FriendDeleteDialog} from './FriendDeleteDialog';
 import "./Friends.scss"
+import { Form, Button } from 'react-bootstrap';
 import { useHistory } from "react-router-dom"
 
 import {FriendsItem} from './FriendsItem'
 
 
 const Friends = props => {
-  const type = props?.type ?? '';
 
   const history = useHistory()
 
   const [show, setShow] = useState(false);
+  const [key, setKey] = useState('');
 
   const [idContact, setIdContact] = useState(null);
+  const [nameContact, setNameContact] = useState(null);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -26,11 +28,15 @@ const Friends = props => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(actions.fetchFriends(type));
-  }, [dispatch, type]);
+    dispatch(actions.startSearch());
+  }, [dispatch]);
 
   const DongYKetBan = dataItem => {
-    dispatch(actions.dongYKetBan(dataItem.datacontact.id))
+    dispatch(actions.dongYKetBanS(dataItem.datacontact.id,dataItem.username))
+  };
+
+  const KetBan = dataItem => {
+    dispatch(actions.KetBan(dataItem.datacontact.id,dataItem.username))
   };
 
   const TroChuyen = dataItem => {
@@ -38,22 +44,35 @@ const Friends = props => {
   };
 
   const HuyKetBan = () => {
-    dispatch(actions.huyKetBan(idContact, handleClose))
+    dispatch(actions.huyKetBanS(idContact, nameContact, handleClose))
   };
 
   const TuChoiKetBan = dataItem => {
     console.log(dataItem);
     if (dataItem.datacontact && dataItem.datacontact.id) {
       setIdContact(dataItem.datacontact.id);
+      setNameContact(dataItem.username);
     }
     handleShow();
   };
+
+  const searchFriends = (key) => {
+    dispatch(actions.fetchFriendsSearch(key))
+  }
 
   return (
     <>
       <div className="card card-custom gutter-b">
         <div className="card-body">
           <div className="flex-row-lg-fluid">
+            <Form style={{margin: 10}}>
+                <Form.Group controlId="searchKey">
+                    <Form.Control type="text" placeholder="Nhập từ khóa" value={key} onChange={(e) => setKey(e.target.value)} />
+                </Form.Group>
+                <Button variant="primary" onClick={() => searchFriends(key)}>
+                    Tìm kiếm
+                </Button>
+            </Form>
             <div className="row">
               {entities &&
                 entities.map((item, index) => (
@@ -63,7 +82,8 @@ const Friends = props => {
                     DongYKetBan={DongYKetBan}
                     TuChoiKetBan={TuChoiKetBan}
                     TroChuyen={TroChuyen}
-                    type={type}
+                    KetBan={KetBan}
+                    type={item.type}
                   />
                 ))}
             </div>

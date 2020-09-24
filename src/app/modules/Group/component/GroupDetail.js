@@ -1,13 +1,14 @@
-import React, {useState, useEffect} from 'react';
-import {useSelector} from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom'
 
-import PostItem from './PostItem';
+import PostItem from '../../Newsfeed/components/PostItem';
 
-import datademo from '../_data/data.json';
-import {requestGET, GLOBAL_URL} from '../../../basic/basicApi'
+import { requestGET, GLOBAL_URL } from '../../../basic/basicApi'
 
-const ListPost = props => {
-  const {user} = useSelector(state => state.auth);
+export const GroupDetail = props => {
+  const { user } = useSelector(state => state.auth);
+  const location = useLocation();
 
   const [loadMore, setLoadMore] = useState(true);
 
@@ -48,7 +49,7 @@ const ListPost = props => {
 
   const getData = async load => {
     if (load) {
-      var data = await requestGET(`${GLOBAL_URL}/v1/post/GetListPost?page=0&perpage=20`);
+      var data = await requestGET(`${GLOBAL_URL}/v1/post/GetListPostInGroup?groupId=${Number(location.pathname.split("/").pop())}&page=0&perpage=20`);
       setData(data.data)
     }
   };
@@ -57,11 +58,9 @@ const ListPost = props => {
     <>
       <div id="list">
         {data.map((item, i) => (
-          <PostItem key={i} itemData={item} load = {loadMore} setLoad = {setLoadMore}  />
+          <PostItem key={i} itemData={item} />
         ))}
       </div>
     </>
   );
 };
-
-export default ListPost;
