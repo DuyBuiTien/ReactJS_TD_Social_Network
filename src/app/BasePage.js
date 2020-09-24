@@ -12,7 +12,8 @@ const ECommercePage = lazy(() => import('./modules/ECommerce/pages/eCommercePage
 const NewfeedPage = lazy(() => import('./modules/Newsfeed/pages/NewsfeedPage'));
 const FriendsPage = lazy(() => import('./modules/Friends/pages/friendsPage'));
 const ChatsPage = lazy(() => import('./modules/Chats/pages/chatPage'));
-const GroupPage = lazy(() => import('./modules/Group/pages/GroupPage'))
+const GroupPage = lazy(() => import('./modules/Group/pages/GroupPage'));
+const ProfilePage = lazy(() => import('./modules/Profile/pages/ProfilePage'));
 
 export default function BasePage() {
   // useEffect(() => {
@@ -38,6 +39,7 @@ export default function BasePage() {
         <Route path="/friends" component={FriendsPage} />
         <Route path="/chat" component={ChatsPage} />
         <Route path="/groups" component={GroupPage}/>
+        <Route path="/profile" component={ProfilePage}/>
 
         <Redirect to="error/error-v1" />
       </Switch>

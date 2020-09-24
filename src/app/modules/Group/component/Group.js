@@ -4,6 +4,7 @@ import { Container, Row, Col, Pagination, Button, Card, Jumbotron, Image } from 
 import { useHistory } from 'react-router-dom';
 
 import { requestGET, GLOBAL_URL } from '../../../basic/basicApi'
+import { toAbsoluteUrl, checkIsActive } from '../../../../_metronic/_helpers';
 
 export const Group = (props) => {
 
@@ -48,7 +49,7 @@ export const Group = (props) => {
             <Col style={{ display: 'flex', justifyContent: 'space-around' }}>
               <Card style={{ width: '30rem', borderRadius: '0.5rem' }}>
                 <Card.Img
-                  src="https://iqonic.design/themes/socialv/vue/dist/img/profile-bg1.12dbfea2.jpg"
+                  src={toAbsoluteUrl('/media/svg/shapes/abstract-10.svg')}
                 ></Card.Img>
                 <Card.Body style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
                   <Card.Title>{item.name}</Card.Title>
