@@ -36,7 +36,7 @@ const Friends = props => {
   };
 
   const KetBan = dataItem => {
-    dispatch(actions.KetBan(dataItem.datacontact.id,dataItem.username))
+    dispatch(actions.KetBan(dataItem.username))
   };
 
   const TroChuyen = dataItem => {
