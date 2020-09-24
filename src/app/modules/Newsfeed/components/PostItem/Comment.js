@@ -1,17 +1,33 @@
-import React from 'react';
-import TextareaAutosize from 'react-textarea-autosize';
-import _ from 'lodash';
-
+import React, {useState, useEffect} from 'react'
+import TextareaAutosize from 'react-textarea-autosize'
+import _ from 'lodash'
+import {Button} from 'antd'
+import SendOutlined from '@material-ui/icons/SendOutlined'
+import {requestPOST, GLOBAL_URL, requestGET} from '../../../../basic/basicApi'
 const PostInfo = props => {
-  const {data} = props;
+  const {data} = props
 
-  const attachments = data?.attachments ?? [];
+  const attachments = data?.attachments ?? []
+  const [contentData, setContentData] = useState('')
+  let arr_image = _.filter(attachments, {type: 'image'}).map(i => `https://s1.cdn.becuame.com/medium/${i.url}`)
 
-  let arr_image = _.filter(attachments, {type: 'image'}).map(i => `https://s1.cdn.becuame.com/medium/${i.url}`);
+  useEffect(() => {
+    return () => {}
+  }, [])
+
+  const handlePostComment = async () => {
+    var newComment = {
+      contentData: contentData,
+      postId: data.id,
+    }
+    var res = await requestPOST(`${GLOBAL_URL}/v1/comment/CreateComment`, newComment)
+    setContentData('')
+    props.setLoad(true);
+  }
 
   return (
     <div
-      className="View "
+      className='View '
       style={{
         padding: '10px',
         backgroundColor: 'white',
@@ -28,7 +44,7 @@ const PostInfo = props => {
         <div className="symbol-label" style={{backgroundImage: 'url("/media/users/300_21.jpg")'}} />
       </div> */}
       <div
-        className="Image GroupAvatar"
+        className='Image GroupAvatar'
         style={{width: '40px', height: '40px', borderRadius: '20px', backgroundColor: 'rgb(239, 239, 239)'}}>
         <div
           style={{
@@ -42,7 +58,7 @@ const PostInfo = props => {
         />
       </div>
       <div
-        className="View QuickInputCommentItem-inputContainer"
+        className='View QuickInputCommentItem-inputContainer'
         style={{
           marginLeft: '6px',
           borderColor: 'rgb(222, 222, 222)',
@@ -58,9 +74,9 @@ const PostInfo = props => {
           overflow: 'hidden',
         }}>
         <TextareaAutosize
-          className="AutoSizeInput form-control border-0 m-1"
-          placeholder="Viết bình luận..."
-          autoCapitalize="sentences"
+          className='AutoSizeInput form-control border-0 m-1'
+          placeholder='Viết bình luận...'
+          autoCapitalize='sentences'
           style={{
             flexGrow: 1,
             flexShrink: 1,
@@ -72,10 +88,22 @@ const PostInfo = props => {
             boxSizing: 'border-box',
           }}
           defaultValue={''}
+          value= {contentData}
           rows={1}
           maxRows={6}
+          onChange={e => {
+            setContentData(e.target.value)
+          }}
         />
-        <div className="TouchableOpacity  ">
+        <Button
+          type='text'
+          icon={<SendOutlined color='primary' style={{marginRight: 10}} fontSize='default' />}
+          onClick={() => {
+            handlePostComment()
+          }}
+        />
+
+        {/* <div className="TouchableOpacity  ">
           <div className="Image " style={{width: '26px', height: '26px', margin: '3px'}}>
             <div
               style={{
@@ -121,21 +149,8 @@ const PostInfo = props => {
             </div>
           </div>
         </div>
-        <div className="TouchableOpacity  disabled">
-          <i
-            style={{
-              fontSize: '22px',
-              color: 'lightgray',
-              height: '40px',
-              lineHeight: '40px',
-              paddingLeft: '10px',
-              paddingRight: '10px',
-              fontFamily: 'Ionicons',
-              fontWeight: 'normal',
-              fontStyle: 'normal',
-            }}>
-            
-          </i>
+        <div className="TouchableOpacity">
+          
         </div>
         <div
           className="Image "
@@ -192,10 +207,10 @@ const PostInfo = props => {
               backgroundPosition: 'center center',
             }}
           />
-        </div>
+        </div> */}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default PostInfo;
+export default PostInfo
