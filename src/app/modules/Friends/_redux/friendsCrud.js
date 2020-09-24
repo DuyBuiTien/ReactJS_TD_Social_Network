@@ -2,6 +2,8 @@ import axios from 'axios';
 
 export const PRODUCTS_URL = process.env.REACT_APP_API_URL + '/v1/contact';
 
+export const PRODUCTS1_URL = process.env.REACT_APP_API_URL + '/v1/user';
+
 // CREATE =>  POST: add a new product to the server
 export function createProduct(product) {
   return axios.post(PRODUCTS_URL, {product});
@@ -38,8 +40,28 @@ export function updateStatusForProducts(ids, status) {
 }
 
 // DELETE => delete the product from the server
-export function huyKetBan(productId) {
-  return axios.delete(`${PRODUCTS_URL}/${productId}`);
+export function huyKetBan(id) {
+  return axios.post(`${PRODUCTS_URL}/HandleContact`, {
+    "id": id, 
+    "status": 2
+  });
+}
+
+export function dongYKetBan(id) {
+  return axios.post(`${PRODUCTS_URL}/HandleContact`, {
+    "id": id, 
+    "status": 1
+  });
+}
+
+export function KetBan(username) {
+  return axios.post(`${PRODUCTS_URL}/CreateContact`, {
+    "username": username
+  });
+}
+
+export function timKienBanBe(key) {
+  return axios.get(`${PRODUCTS1_URL}/ListUser?q=${key}`);
 }
 
 // DELETE Products by ids

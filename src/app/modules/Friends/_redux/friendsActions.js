@@ -3,6 +3,13 @@ import {friendsSlice, callTypes} from './friendsSlice';
 
 const {actions} = friendsSlice;
 
+export const startSearch = () => dispatch => {
+  dispatch(actions.startCall({callType: callTypes.list}));
+  const entities = [];
+  const totalCount = 0;
+  dispatch(actions.startSearch({totalCount, entities}));
+};
+
 export const fetchFriends = type => dispatch => {
   dispatch(actions.startCall({callType: callTypes.list}));
 
@@ -15,6 +22,25 @@ export const fetchFriends = type => dispatch => {
       const entities = response.data.data;
       const totalCount = response.data.meta.total;
       dispatch(actions.friendsFetched({totalCount, entities}));
+    })
+    .catch(error => {
+      error.clientMessage = "Can't find friends";
+      dispatch(actions.catchError({error, callType: callTypes.list}));
+    });
+};
+
+export const fetchFriendsSearch = key => dispatch => {
+  dispatch(actions.startCall({callType: callTypes.action}));
+
+  return requestFromServer
+    .timKienBanBe(key)
+    .then(response => {
+      console.log('response');
+      console.log(response);
+      //const {totalCount, entities} = response.data;
+      const entities = response.data.data;
+      const totalCount = response.data.meta.total;
+      dispatch(actions.friendsSearchFetched({totalCount, entities}));
     })
     .catch(error => {
       error.clientMessage = "Can't find friends";
@@ -40,15 +66,71 @@ export const fetchProduct = id => dispatch => {
     });
 };
 
-export const huyKetBan = id => dispatch => {
+export const huyKetBan = (id, handleClose) => dispatch => {
   dispatch(actions.startCall({callType: callTypes.action}));
   return requestFromServer
     .huyKetBan(id)
     .then(response => {
       dispatch(actions.huyKetBaned({id}));
+      handleClose()
+    })
+    .catch(error => {
+      console.log(error)
+      error.clientMessage = "Không thể hủy kết bạn";
+      dispatch(actions.catchError({error, callType: callTypes.action}));
+    });
+};
+
+export const dongYKetBan = (id) => dispatch => {
+  dispatch(actions.startCall({callType: callTypes.action}));
+  return requestFromServer
+    .dongYKetBan(id)
+    .then(response => {
+      dispatch(actions.dongYKetBaned({id}));
+    })
+    .catch(error => {
+      error.clientMessage = "Không thể kết bạn";
+      dispatch(actions.catchError({error, callType: callTypes.action}));
+    });
+};
+
+export const KetBan = (id,username) => dispatch => {
+  dispatch(actions.startCall({callType: callTypes.action}));
+  return requestFromServer
+    .KetBan(username)
+    .then(response => {
+      dispatch(actions.KetBaned({username}));
+    })
+    .catch(error => {
+      error.clientMessage = "Không thể gửi kết bạn";
+      dispatch(actions.catchError({error, callType: callTypes.action}));
+    });
+};
+
+export const huyKetBanS = (id, username, handleClose) => dispatch => {
+  dispatch(actions.startCall({callType: callTypes.action}));
+  return requestFromServer
+    .huyKetBan(id)
+    .then(response => {
+      dispatch(actions.huyKetBanedS({username}));
+      handleClose()
     })
     .catch(error => {
       error.clientMessage = "Không thể hủy kết bạn";
+      dispatch(actions.catchError({error, callType: callTypes.action}));
+    });
+};
+
+export const dongYKetBanS = (id,username) => dispatch => {
+  dispatch(actions.startCall({callType: callTypes.action}));
+  return requestFromServer
+    .dongYKetBan(id)
+    .then(response => {
+      dispatch(actions.dongYKetBanedS({username}));
+    })
+    .catch(error => {
+      console.log(error)
+      error.clientMessage = "Không thể kết bạn";
       dispatch(actions.catchError({error, callType: callTypes.action}));
     });
 };
