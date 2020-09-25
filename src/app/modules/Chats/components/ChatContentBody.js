@@ -32,7 +32,7 @@ const ChatContentBody = props => {
                     : ''}
                 </span>
                 <span href="#" className="text-dark-75 text-hover-primary font-weight-bold font-size-h6 ml-1">
-                  Tôi
+                  
                 </span>
               </div>
             </div>

@@ -79,31 +79,10 @@ const ChatContentFooter = props => {
   };
 
   return (
-    <div className="card-footer align-items-center" style={{padding: '1rem'}}>
+    <div className="card-footer align-items-center" style={{padding: '0.5rem'}}>
       {/*begin::Compose*/}
-      <Input
-        ref={inputMessageRef}
-        placeholder="Nhập tin nhắn"
-        //value={inputdemo}
-        value={inputMessage?.text ?? ''}
-        onChange={e => {
-          //setInputdemo(e.target.value);
-          onInputMessageChange(e.target.value);
-        }}
-        className="form-control border-0 p-0"
-        onPressEnter={handleSendClick}
-        onKeyUp={() => {
-          if (!typing) {
-            setTyping(true);
-            if (inputMessage && inputMessage.text.trim() !== '') {
-            }
-          }
-          delay(() => {
-            setTyping(false);
-          }, 1000);
-        }}
-      />
-      <div className="d-flex align-items-center justify-content-between mt-5">
+
+      <div className="d-flex align-items-center justify-content-between ">
         <div className="mr-3">
           <Upload
             accept="image/*"
@@ -140,12 +119,36 @@ const ChatContentFooter = props => {
             </span>
           </Upload>
         </div>
+        <Input
+          ref={inputMessageRef}
+          placeholder="Nhập tin nhắn"
+          //value={inputdemo}
+          value={inputMessage?.text ?? ''}
+          onChange={e => {
+            //setInputdemo(e.target.value);
+            onInputMessageChange(e.target.value);
+          }}
+          className="form-control  p-2 m-2"
+          style={{flex: 1}}
+          onPressEnter={handleSendClick}
+          onKeyUp={() => {
+            if (!typing) {
+              setTyping(true);
+              if (inputMessage && inputMessage.text.trim() !== '') {
+              }
+            }
+            delay(() => {
+              setTyping(false);
+            }, 1000);
+          }}
+        />
         <div>
           <button
             type="button"
-            className="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6"
+            className="btn btn-primary btn-md text-uppercase chat-send py-2 px-4"
             onClick={handleSendClick}>
-            Gửi
+            <i class="far fa-paper-plane"></i>
+            {` Gửi`}
           </button>
         </div>
       </div>

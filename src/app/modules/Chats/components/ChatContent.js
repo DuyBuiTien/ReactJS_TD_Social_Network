@@ -49,7 +49,7 @@ const ChatContent = props => {
   return (
     <div className="card card-custom flex-grow-1">
       <ChatContentHeader />
-      <ChatStyled ref={scrollRef}>
+      <ChatStyled ref={scrollRef} className="scroll-y">
         <ChatContentBody messages={messages} />
       </ChatStyled>
       <ChatContentFooter />

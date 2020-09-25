@@ -5,12 +5,12 @@ import LeftContent from '../components/LeftContent';
 
 const NewsPage = props => {
   return (
-    <div className="d-flex" style={{height: 'calc(100vh - 180px)', backgroundColor: '#fff'}}>
-      <div className="d-flex flex-column p-3" style={{width: 350, borderRight: '1px solid rgba(0, 0, 0, 0.05)'}}>
+    <div className="d-flex" style={{height: 'calc(100vh - 95px)', backgroundColor: '#fff'}}>
+      <div className="d-flex flex-column p-3" style={{width: 350, backgroundColor: '#fff', borderRight: '1px solid rgba(0, 0, 0, 0.05)'}}>
         <LeftContent />
       </div>
 
-      <div className="d-flex flex-grow-1">
+      <div className="d-flex flex-grow-1 scroll-y">
         <ChatContent />
       </div>
     </div>

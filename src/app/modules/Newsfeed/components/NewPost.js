@@ -117,7 +117,7 @@ const NewPost = props => {
               showSearch
               style={{width: '100%', marginTop:10}}
               bordered = {false}
-              placeholder='Select a person'
+              placeholder='Lựa chọn nhóm'
               optionFilterProp='children'
               onChange={(value)=>{setGroupSelected(value)}}
               >

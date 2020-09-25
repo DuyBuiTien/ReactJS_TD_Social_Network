@@ -44,7 +44,7 @@ const LeftContent = props => {
     <>
       <SearchBar />
 
-      <div className="scroll-y bg-transparent mt-1">
+      <div className="scroll-y mt-1">
         {/* <InfiniteScroll
           initialLoad={false}
           pageStart={0}

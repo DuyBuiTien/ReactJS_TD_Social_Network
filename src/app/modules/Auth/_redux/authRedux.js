@@ -3,6 +3,8 @@ import storage from 'redux-persist/lib/storage';
 import {put, takeLatest} from 'redux-saga/effects';
 import {getUserByToken} from './authCrud';
 
+import {socketDisconnect, configSocket} from '../../../../redux/rootSocket';
+
 export const actionTypes = {
   Login: '[Login] Action',
   Logout: '[Logout] Action',
@@ -24,6 +26,7 @@ export const reducer = persistReducer(
       case actionTypes.Login: {
         const {authToken, refreshToken, user} = action.payload;
         window.localStorage.setItem('Token', JSON.stringify({accessToken: authToken, refreshToken}));
+        configSocket();
         return {authToken, refreshToken, user: undefined};
       }
 
@@ -36,6 +39,7 @@ export const reducer = persistReducer(
       case actionTypes.Logout: {
         // TODO: Change this code. Actions in reducer aren't allowed.
         window.localStorage.removeItem('Token');
+        socketDisconnect();
         return initialAuthState;
       }
 

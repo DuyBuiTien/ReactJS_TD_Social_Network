@@ -173,7 +173,7 @@ export function SearchDropdown() {
           <Dropdown.Toggle as={DropdownTopbarItemToggler}>
             <OverlayTrigger
               placement="bottom"
-              overlay={<Tooltip id="search-panel-tooltip">Quick search</Tooltip>}
+              overlay={<Tooltip id="search-panel-tooltip">Tìm kiếm</Tooltip>}
             >
               <div className="btn btn-icon btn-hover-transparent-white btn-dropdown btn-lg mr-1 pulse pulse-white">
                 <span className="svg-icon svg-icon-xl">
@@ -207,7 +207,7 @@ export function SearchDropdown() {
                   <input
                     type="text"
                     autoFocus={true}
-                    placeholder="Search..."
+                    placeholder="Nhập từ khóa..."
                     value={searchValue}
                     onChange={handleSearchChange}
                     className="form-control"

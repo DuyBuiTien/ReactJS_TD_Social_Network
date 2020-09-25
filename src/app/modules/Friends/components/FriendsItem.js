@@ -25,7 +25,7 @@ export const FriendsItem = props => {
             {/*end::Pic*/}
             {/*begin::Title*/}
             <div className="d-flex flex-column">
-              <span className="text-hover-primary font-size-h4 mb-0" onClick={() => history.push(`/profile/${data.username}`)} style={{color: '#385898', cursor: 'pointer'}}>{data?.fullName ?? ''}</span>
+              <span className="text-hover-primary font-size-lg mb-0" onClick={() => history.push(`/profile/${data.username}`)} style={{color: '#385898', cursor: 'pointer'}}>{data?.fullName ?? ''}</span>
               <span className="text-muted">{data.position?.name ?? ''}</span>
               <span className="text-muted">{data.office?.name ?? ''}</span>
             </div>
