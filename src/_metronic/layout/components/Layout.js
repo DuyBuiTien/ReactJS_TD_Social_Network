@@ -13,7 +13,7 @@ import {QuickPanel} from './extras/offcanvas/QuickPanel';
 import {QuickChat} from './extras/offcanvas/QuickChat';
 import {QuickUser} from './extras/offcanvas/QuickUser';
 import {ScrollTop} from './extras/ScrollTop';
-import {StickyToolbar} from './extras/StickyToolbar';
+//import {StickyToolbar} from './extras/StickyToolbar';
 
 export function Layout({children}) {
   const uiService = useHtmlClassService();
@@ -68,7 +68,7 @@ export function Layout({children}) {
       <QuickPanel />
       <QuickChat />
       <ScrollTop />
-      <StickyToolbar />
+      {/* <StickyToolbar /> */}
       {/*end::Main*/}
       <LayoutInit />
     </>

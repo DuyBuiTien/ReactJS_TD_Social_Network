@@ -8,7 +8,7 @@ const PostInfo = props => {
 
   const attachments = data?.attachments ?? [];
 
-  let arr_image = _.filter(attachments, {type: 'image'}).map(i => `${GLOBAL_URL}${i.path}`);
+  let arr_image = _.filter(attachments, {type: 'image'}).map(i => `${GLOBAL_URL}/${i.path}`);
   return (
     <div className="pt-5">
       <p className="text-dark-75 font-size-lg font-weight-normal mb-2">{data.contentData}</p>

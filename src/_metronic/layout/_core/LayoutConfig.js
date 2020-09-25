@@ -204,13 +204,13 @@ export function getInitLayoutConfig() {
         },
       },
       'quick-panel': {
-        display: true,
+        display: false,
         offcanvas: {
           directions: 'right',
         },
       },
       chat: {
-        display: true,
+        display: false,
       },
       toolbar: {
         display: true,
