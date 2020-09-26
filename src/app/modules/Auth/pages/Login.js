@@ -116,11 +116,7 @@ function Login(props) {
             <div className="alert-text font-weight-bold">{formik.status}</div>
           </div>
         ) : (
-          <div className="mb-10 alert alert-custom alert-light-info alert-dismissible">
-            <div className="alert-text ">
-              Use account <strong>demo1</strong> and password <strong>Tandan123</strong> to continue.
-            </div>
-          </div>
+          <></>
         )}
 
         <div className="form-group fv-plugins-icon-container">
