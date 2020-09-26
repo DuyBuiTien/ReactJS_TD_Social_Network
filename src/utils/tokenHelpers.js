@@ -1,39 +1,37 @@
-exports.isAuthenticated = () => {
-  if (typeof window === 'undefined') return true;
-  let data = window.localStorage.getItem('Token');
+import Cookies from 'js-cookie';
 
-  if (data) {
-    let token = JSON.parse(data).accessToken;
-    return token;
+export const isAuthenticated = () => {
+  if (typeof window === 'undefined') return true;
+  var tokenApi = Cookies.get('token')
+  if (!tokenApi) {
+    tokenApi =
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MDEwMjA5MzUsImV4cCI6MTYwMTEwNzMzNSwiaGFzaHB3ZCI6InpmQ1R5YStBUGJoT2JsL3BQUzVVWFE9PSIsImNvbnRleHQiOnsidXNlciI6eyJ1c2VyTmFtZSI6ImRlbW8xIiwiZGlzcGxheU5hbWUiOiJkZW1vMSJ9fX0.6d8YsRpGfeNF38GiBnDI1Yu8boa8tBq53GgMTVlj3i8'
   }
-  return false;
+  return tokenApi;
 };
 
-exports.getAccessToken = () => {
+export const getAccessToken = () => {
   if (typeof window === 'undefined') return true;
-  let token = window.localStorage.getItem('Token');
-
-  if (token) {
-    let data = JSON.parse(token).accessToken;
-    return data;
+  var tokenApi = Cookies.get('token')
+  if (!tokenApi) {
+    tokenApi =
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MDEwMjA5MzUsImV4cCI6MTYwMTEwNzMzNSwiaGFzaHB3ZCI6InpmQ1R5YStBUGJoT2JsL3BQUzVVWFE9PSIsImNvbnRleHQiOnsidXNlciI6eyJ1c2VyTmFtZSI6ImRlbW8xIiwiZGlzcGxheU5hbWUiOiJkZW1vMSJ9fX0.6d8YsRpGfeNF38GiBnDI1Yu8boa8tBq53GgMTVlj3i8'
   }
-  return null;
+  return tokenApi;
 };
 
-exports.getRefreshToken = () => {
+export const getRefreshToken = () => {
   if (typeof window === 'undefined') return true;
 
-  let token = window.localStorage.getItem('Token');
-
-  if (token) {
-    let data = JSON.parse(token).refreshToken;
-    return data;
+  var tokenApi = Cookies.get('token')
+  if (!tokenApi) {
+    tokenApi =
+      ''
   }
-
-  return null;
+  return tokenApi;
 };
 
-exports.isTokenExpired = TokenObject => {
+export const isTokenExpired = TokenObject => {
   const currentTimestamp = new Date().getTime();
   const {exp} = TokenObject;
   if (!exp) return false;
