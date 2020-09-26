@@ -4,18 +4,13 @@ import {Link, useParams} from 'react-router-dom';
 import {formatDistanceToNowStrict} from 'date-fns';
 import {vi} from 'date-fns/locale';
 
-import {List, Input, Layout, Menu, Badge, Row, Button, Dropdown, Tooltip} from 'antd';
-
-import {Users, MessageCircle, Search as SearchIcon, Edit} from 'react-feather';
+import {List} from 'antd';
 
 import SearchBar from './SearchBar';
 
 import * as actions from '../_redux/chatActions';
 
 import {textAbstract} from '../../../../utils/helper';
-import AvatarCus from './AvatarCus';
-
-const {Sider, Header} = Layout;
 
 const LeftContent = props => {
   const dispatch = useDispatch();
@@ -26,7 +21,6 @@ const LeftContent = props => {
   const {currentState} = useSelector(state => ({currentState: state.chats}), shallowEqual);
 
   const {conversations} = currentState;
-  const [modalCreateGroupChatVisible, setModalCreateGroupChatVisible] = useState(false);
 
   /*  const loadMoreMessageList = () => {
     console.log('VAODAY loadMoreMessageList');
@@ -50,39 +44,6 @@ const LeftContent = props => {
 
   return (
     <>
-      <Header
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          padding: '0.3rem 1.5rem',
-          zIndex: '1',
-          boxShadow: '0 2px 2px rgba(0, 0, 0, 0.02), 0 1px 0 rgba(0, 0, 0, 0.02)',
-          height: 'auto',
-          lineHeight: 'auto',
-          backgroundColor: '#fff',
-        }}>
-        <Row type="flex" align="middle">
-          <AvatarCus record={currentUser ? currentUser : null} />
-          <span className="ml-3" style={{lineHeight: '1'}}>
-            <span style={{display: 'block'}}>{currentUser ? `${currentUser.fullName}` : ''}</span>
-            {/* <small className="text-muted">
-                        <span>Online</span>
-                    </small> */}
-          </span>
-        </Row>
-        <span className="mr-auto" />
-        <div>
-          <Tooltip title="Tạo nhóm trò chuyện">
-            <Button
-              shape="circle"
-              style={{border: '0'}}
-              onClick={() => setModalCreateGroupChatVisible(!modalCreateGroupChatVisible)}>
-              <Edit size={16} />
-            </Button>
-          </Tooltip>
-        </div>
-      </Header>
-
       <SearchBar />
 
       <div className="scroll-y mt-1">
