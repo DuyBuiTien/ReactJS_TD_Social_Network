@@ -12,7 +12,7 @@ const PostComment = props => {
   const {data} = props
   const [dataComment, setDataComment] = useState([])
   const {user} = useSelector(state => state.auth)
-
+  
   console.log(data)
   useEffect(() => {
     const fetchDataComment = async () => {
@@ -32,10 +32,10 @@ const PostComment = props => {
     var res = await requestPOST(`${GLOBAL_URL}/v1/reaction/CreateReaction`, newLike)
     props.setLoad(true)
   }
-  const handleUnLike = async () => {
+  const handleUnLike = async (id) => {
     var unLike = {
       postId: data.id,
-      commentId: null,
+      commentId: id,
     }
     var res = await requestPOST(`${GLOBAL_URL}/v1/reaction/DeleteReaction`, unLike)
     props.setLoad(true)
@@ -88,20 +88,20 @@ const PostComment = props => {
                 {data.reactions.findIndex(i => i.userId == user.id && i.commentId !== null) > -1 ? (
                   <div
                     onClick={() => {
-                      handleLike(item.id)
-                    }}
-                    className='Text pt-1 pl-2 pr-2 likeButton'
-                    style={{color: 'rgb(112, 112, 112)', fontSize: '0.8571em', fontWeight: 600}}>
-                    Thích
-                  </div>
-                ) : (
-                  <div
-                    onClick={() => {
                       handleUnLike(item.id)
                     }}
                     className='Text pt-1 pl-2 pr-2 likeButton'
                     style={{color: '#F64E60', fontSize: '0.8571em', fontWeight: 600}}>
                     Đã thích
+                  </div>
+                ) : (
+                  <div
+                    onClick={() => {
+                      handleLike(item.id)
+                    }}
+                    className='Text pt-1 pl-2 pr-2 likeButton'
+                    style={{color: 'rgb(112, 112, 112)', fontSize: '0.8571em', fontWeight: 600}}>
+                    Thích
                   </div>
                 )}
                 <div className='Text pt-1 pl-2 pr-2' style={{fontSize: '0.8571em', fontWeight: 600, color: 'rgb(112, 112, 112)'}}>
