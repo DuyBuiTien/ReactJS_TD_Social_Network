@@ -4,21 +4,15 @@ import {Link, useParams} from 'react-router-dom';
 import {formatDistanceToNowStrict} from 'date-fns';
 import {vi} from 'date-fns/locale';
 
-import {List, Input, Layout, Menu, Badge, Row, Button, Dropdown, Tooltip} from 'antd';
+import {List, Layout, Button, Input, Tooltip} from 'antd';
 
-import {Users, MessageCircle, Search as SearchIcon, Edit} from 'react-feather';
-
-import SearchBar from './SearchBar';
-
-import * as actions from '../_redux/chatActions';
+import {Search as SearchIcon, Edit} from 'react-feather';
 
 import {textAbstract} from '../../../../utils/helper';
-import AvatarCus from './AvatarCus';
 
-const {Sider, Header} = Layout;
+const {Header} = Layout;
 
 const LeftContent = props => {
-  const dispatch = useDispatch();
   const {id} = useParams();
   const {user} = useSelector(state => state.auth);
   const currentUser = user;
@@ -28,48 +22,41 @@ const LeftContent = props => {
   const {conversations} = currentState;
   const [modalCreateGroupChatVisible, setModalCreateGroupChatVisible] = useState(false);
 
-  /*  const loadMoreMessageList = () => {
-    console.log('VAODAY loadMoreMessageList');
-
-    let gskip = 0;
-    let pskip = 0;
-    conversations.forEach(message => {
-      if (message.conversationType === 'User') pskip += 1;
-      if (message.conversationType === 'ChatGroup') gskip += 1;
-    });
-    dispatch(actions.fetchConversations({gskip, pskip}));
-  };
- */
-  useEffect(() => {
-    let gskip = 0;
-    let pskip = 0;
-    dispatch(actions.fetchConversations({gskip, pskip}));
-
-    return () => {};
-  }, [dispatch]);
-
   return (
     <>
       <Header
         style={{
           display: 'flex',
           alignItems: 'center',
-          padding: '0.3rem 1.5rem',
+          padding: '0.3rem 0rem',
           zIndex: '1',
           boxShadow: '0 2px 2px rgba(0, 0, 0, 0.02), 0 1px 0 rgba(0, 0, 0, 0.02)',
           height: 'auto',
           lineHeight: 'auto',
           backgroundColor: '#fff',
         }}>
-        <Row type="flex" align="middle">
-          <AvatarCus record={currentUser ? currentUser : null} />
-          <span className="ml-3" style={{lineHeight: '1'}}>
-            <span style={{display: 'block'}}>{currentUser ? `${currentUser.fullName}` : ''}</span>
-            {/* <small className="text-muted">
-                        <span>Online</span>
-                    </small> */}
-          </span>
-        </Row>
+        <Input
+          //ref={inputMessageRef}
+          placeholder="Tìm kiếm..."
+          //value={inputdemo}
+          //value={inputMessage?.text ?? ''}
+          onChange={e => {
+            //setInputdemo(e.target.value);
+          }}
+          className="form-control  p-2 m-2"
+          style={{flex: 1}}
+          //onPressEnter={handleSendClick}
+          onKeyUp={() => {
+            /* if (!typing) {
+              setTyping(true);
+              if (inputMessage && inputMessage.text.trim() !== '') {
+              }
+            }
+            delay(() => {
+              setTyping(false);
+            }, 1000); */
+          }}
+        />
         <span className="mr-auto" />
         <div>
           <Tooltip title="Tạo nhóm trò chuyện">
@@ -83,28 +70,7 @@ const LeftContent = props => {
         </div>
       </Header>
 
-      <SearchBar />
-
       <div className="scroll-y mt-1">
-        {/* <InfiniteScroll
-          initialLoad={false}
-          pageStart={0}
-          useWindow={false}
-          loadMore={loadMoreMessageList}
-          // hasMore={!messageListLoading && hasMoreMessageList}
-        >
-          <List
-            itemLayout="horizontal"
-            dataSource={conversations}
-            renderItem={item => (
-              <Link to={`/chat/${item.id}`}>
-                <List.Item>
-                  <ItemConversation />
-                </List.Item>
-              </Link>
-            )}
-          />
-        </InfiniteScroll> */}
         {conversations &&
           conversations.map((item, index) => {
             if (item) {
@@ -122,13 +88,16 @@ const LeftContent = props => {
 
               if (user) {
                 return (
-                  <Link to={item.conversationType === 'ChatGroup' ? `/chat/${user.id}` : `/chat/${user.username}`} key={index}>
+                  <Link
+                    to={item.conversationType === 'ChatGroup' ? `/chat/${user.id}` : `/chat/${user.username}`}
+                    key={`${user.username + index}`}>
                     <List.Item
                       style={{
                         backgroundColor: user.id === id ? '#e6f7ff' : '#fff',
                         cursor: 'pointer',
                         borderRadius: '0.8rem',
-                      }}>
+                      }}
+                      key={`${user.username + index}AA`}>
                       <div className="d-flex flex-grow-1 align-items-center justify-content-between mb-5">
                         <div className="d-flex align-items-center">
                           <div className="symbol symbol-circle symbol-50 mr-3">
