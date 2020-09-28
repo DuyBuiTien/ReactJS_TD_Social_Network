@@ -1,11 +1,13 @@
 import React, {useState, useRef} from 'react';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 import {Link, useParams} from 'react-router-dom';
-import * as actions from '../_redux/chatActions';
-
-import {isAuthenticated} from '../../../../utils/tokenHelpers';
-
 import {Upload, Button, Input, Popover} from 'antd';
+import {Picker} from 'emoji-mart';
+
+import * as actions from '../_redux/chatActions';
+import {isAuthenticated} from '../../../../utils/tokenHelpers';
+import FileUploadList from './FileUploadList';
+import ImageUploadList from './ImageUploadList';
 
 let typingTimer = null;
 
@@ -29,13 +31,48 @@ const ChatContentFooter = props => {
 
   let {conversation, inputMessage} = currentState;
 
-  /*   if (!inputMessage) {
-    inputMessage = {
-      images: [],
-      text: '',
-      files: [],
-    };
-  } */
+  const handleTypingOff = () => {
+    /* emitTypingOff({
+      info: currentUser,
+      receiver: record.receiver,
+      conversationType: record.conversationType,
+    }); */
+  };
+
+  const onInputMessageChange = message => {
+    dispatch(actions.INPUT_MESSAGE_CHANGE(message));
+    if (message.trim() === '') {
+      handleTypingOff();
+    }
+  };
+
+  const onInputImageListChange = ({fileList}) => {
+    console.log('onInputImageListChange ');
+    console.log(fileList);
+
+    dispatch(actions.INPUT_IMAGE_LIST_CHANGE([...fileList]));
+
+    /*  dispatch({
+      type: constants.INPUT_IMAGE_LIST_CHANGE,
+      payload: [...fileList],
+    }); */
+  };
+
+  const onInputFileListChange = ({fileList}) => {
+    console.log('onInputFileListChange');
+    console.log(fileList);
+
+    dispatch(actions.INPUT_FILE_LIST_CHANGE([...fileList]));
+    /*  dispatch({
+      type: constants.INPUT_FILE_LIST_CHANGE,
+      payload: [...fileList],
+    }); */
+  };
+
+  const addEmoji = e => {
+    onInputMessageChange(inputMessage.text + e.native);
+    inputMessageRef.current.focus();
+  };
 
   const sendText = () => {
     if (inputMessage.text.trim() !== '') {
@@ -51,36 +88,91 @@ const ChatContentFooter = props => {
     }
   };
 
-  const onInputMessageChange = message => {
-    dispatch(actions.INPUT_MESSAGE_CHANGE(message));
-    if (message.trim() === '') {
-      //handleTypingOff();
+  const sendImage = () => {
+    // Nếu đang uploading thì không gửi
+    let uploading = false;
+    inputMessage.images.forEach(item => {
+      if (item.status === 'uploading') uploading = true;
+    });
+    if (uploading) return;
+    if (inputMessage.images.length > 0) {
+      // gửi hình ảnh
+      let images = [];
+      inputMessage.images.forEach(item => {
+        if (item.response.name) {
+          images.push(item.response.name);
+        }
+      });
+
+      dispatch(
+        actions.sendMessage({
+          images,
+          type: 'image',
+          receiver: conversation.receiver.id,
+          conversationType: conversation.conversationType,
+        }),
+      );
+
+      onInputImageListChange({fileList: []});
+    }
+  };
+
+  const sendFile = () => {
+    // Nếu đang uploading thì không gửi
+    let uploading = false;
+
+    console.log(inputMessage.files);
+
+    inputMessage.files.forEach(item => {
+      if (item.status === 'uploading') uploading = true;
+    });
+    if (uploading) return;
+    if (inputMessage.files.length > 0) {
+      // gửi file
+      let files = [];
+      inputMessage.files.forEach(item => {
+        if (item.response.name) {
+          files.push({
+            id: item.response.id,
+            name: item.name,
+            path: item.response.name,
+          });
+        }
+      });
+
+      dispatch(
+        actions.sendMessage({
+          files,
+          type: 'file',
+          receiver: conversation.receiver.id,
+          conversationType: conversation.conversationType,
+        }),
+      );
+
+      onInputFileListChange({fileList: []});
     }
   };
 
   const handleSendClick = () => {
     sendText();
+    sendImage();
+    sendFile();
+
+    handleTypingOff();
 
     inputMessageRef.current.focus();
-  };
-
-  const onInputImageListChange = ({fileList}) => {
-    /*  dispatch({
-      type: constants.INPUT_IMAGE_LIST_CHANGE,
-      payload: [...fileList],
-    }); */
-  };
-
-  const onInputFileListChange = ({fileList}) => {
-    /*  dispatch({
-      type: constants.INPUT_FILE_LIST_CHANGE,
-      payload: [...fileList],
-    }); */
   };
 
   return (
     <div className="card-footer align-items-center" style={{padding: '0.5rem'}}>
       {/*begin::Compose*/}
+
+      {inputMessage && inputMessage.images.length > 0 && (
+        <ImageUploadList fileList={inputMessage.images} onDelete={fileList => onInputImageListChange({fileList})} />
+      )}
+      {inputMessage && inputMessage.files.length > 0 && (
+        <FileUploadList onDelete={fileList => onInputFileListChange({fileList})} fileList={inputMessage.files} />
+      )}
 
       <div className="d-flex align-items-center justify-content-between ">
         <div className="mr-3">
@@ -92,7 +184,7 @@ const ChatContentFooter = props => {
             headers={{
               Authorization: `Bearer ${isAuthenticated()}`,
             }}
-            action={`${process.env.REACT_APP_API_URI}/message/photos`}
+            action={`${process.env.REACT_APP_GLOBAL_URL}/v1/message/photos`}
             showUploadList={false}
             onChange={files => {
               onInputImageListChange(files);
@@ -109,7 +201,7 @@ const ChatContentFooter = props => {
             headers={{
               Authorization: `Bearer ${isAuthenticated()}`,
             }}
-            action={`${process.env.REACT_APP_API_URI}/message/files`}
+            action={`${process.env.REACT_APP_GLOBAL_URL}/v1/message/files`}
             showUploadList={false}
             onChange={files => {
               onInputFileListChange(files);
@@ -118,6 +210,16 @@ const ChatContentFooter = props => {
               <i className="flaticon-attachment icon-lg" />
             </span>
           </Upload>
+
+          <Popover
+            content={<Picker set="facebook" sheetSize={32} onSelect={addEmoji} />}
+            trigger="click"
+            visible={emojiVisible}
+            onVisibleChange={() => setEmojiVisible(!emojiVisible)}>
+            <span className="btn btn-clean btn-icon btn-md">
+              <i className="far fa-smile"></i>
+            </span>
+          </Popover>
         </div>
         <Input
           ref={inputMessageRef}

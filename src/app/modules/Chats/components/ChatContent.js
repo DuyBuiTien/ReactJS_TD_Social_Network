@@ -48,6 +48,7 @@ const ChatContent = props => {
       <ChatStyled ref={scrollRef} className="scroll-y">
         <ChatContentBody messages={messages} />
       </ChatStyled>
+      
       <ChatContentFooter />
     </div>
   );
