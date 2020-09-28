@@ -1,9 +1,13 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import {Dropdown} from 'react-bootstrap';
+import {formatDistanceToNowStrict} from 'date-fns';
+import {vi} from 'date-fns/locale';
 
 const PostInfo = props => {
   const {data} = props;
+  console.log('data');
+  console.log(data);
   return (
     <div className="d-flex align-items-center justify-content-between">
       <div className="symbol symbol-40 symbol-circle symbol-light-success mr-2">
@@ -23,7 +27,13 @@ const PostInfo = props => {
           đăng trong nhóm <NavLink to={`/groups/${data.group.id}`}>{data.group.name}</NavLink>
         </span>
         <span className="text-muted">
-          Hôm qua <i className="fas fa-globe-asia" title="Công khai" />
+          {data.updatedAt
+            ? formatDistanceToNowStrict(new Date(data.updatedAt), {
+                addSuffix: false,
+                locale: vi,
+              })
+            : ''}{' '}
+          <i className="fas fa-globe-asia" title="Công khai" />
         </span>
       </div>
 
@@ -41,7 +51,7 @@ const PostInfo = props => {
                 <span className="navi-text">Theo dõi bài viết</span>
               </a>
             </li>
-            <li className="navi-separator mb-0 opacity-70" />
+            {/* <li className="navi-separator mb-0 opacity-70" />
             <li className="navi-item">
               <a className="navi-link">
                 <span className="navi-icon">
@@ -74,7 +84,7 @@ const PostInfo = props => {
                 </span>
                 <span className="navi-text">Xóa bài viết</span>
               </a>
-            </li>
+            </li> */}
           </ul>
         </Dropdown.Menu>
       </Dropdown>

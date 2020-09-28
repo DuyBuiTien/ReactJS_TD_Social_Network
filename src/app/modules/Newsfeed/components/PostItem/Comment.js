@@ -1,33 +1,33 @@
-import React, {useState, useEffect} from 'react'
-import TextareaAutosize from 'react-textarea-autosize'
-import _ from 'lodash'
-import {Button} from 'antd'
-import SendOutlined from '@material-ui/icons/SendOutlined'
-import {requestPOST, GLOBAL_URL, requestGET} from '../../../../basic/basicApi'
+import React, {useState, useEffect} from 'react';
+import TextareaAutosize from 'react-textarea-autosize';
+import _ from 'lodash';
+import {Button} from 'antd';
+import SendOutlined from '@material-ui/icons/SendOutlined';
+import {requestPOST, GLOBAL_URL, requestGET} from '../../../../basic/basicApi';
 const PostInfo = props => {
-  const {data} = props
+  const {data} = props;
 
-  const attachments = data?.attachments ?? []
-  const [contentData, setContentData] = useState('')
-  let arr_image = _.filter(attachments, {type: 'image'}).map(i => `https://s1.cdn.becuame.com/medium/${i.url}`)
+  const attachments = data?.attachments ?? [];
+  const [contentData, setContentData] = useState('');
+  let arr_image = _.filter(attachments, {type: 'image'}).map(i => `https://s1.cdn.becuame.com/medium/${i.url}`);
 
   useEffect(() => {
-    return () => {}
-  }, [])
+    return () => {};
+  }, []);
 
   const handlePostComment = async () => {
     var newComment = {
       contentData: contentData,
       postId: data.id,
-    }
-    var res = await requestPOST(`${GLOBAL_URL}/v1/comment/CreateComment`, newComment)
-    setContentData('')
+    };
+    var res = await requestPOST(`${GLOBAL_URL}/v1/comment/CreateComment`, newComment);
+    setContentData('');
     props.setLoad(true);
-  }
+  };
 
   return (
     <div
-      className='View '
+      className="View "
       style={{
         padding: '10px',
         backgroundColor: 'white',
@@ -44,13 +44,14 @@ const PostInfo = props => {
         <div className="symbol-label" style={{backgroundImage: 'url("/media/users/300_21.jpg")'}} />
       </div> */}
       <div
-        className='Image GroupAvatar'
+        className="Image GroupAvatar"
         style={{width: '40px', height: '40px', borderRadius: '20px', backgroundColor: 'rgb(239, 239, 239)'}}>
         <div
+          className="symbol-label"
           style={{
-            width: '100%',
-            height: '100%',
-            backgroundImage: 'url("https://graph.facebook.com/3118759381516727/picture?width=2048&height=2048")',
+            /* width: '100%',
+            height: '100%', */
+            backgroundImage: 'url("/media/users/avatar.jpg")',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center center',
@@ -58,7 +59,7 @@ const PostInfo = props => {
         />
       </div>
       <div
-        className='View QuickInputCommentItem-inputContainer'
+        className="View QuickInputCommentItem-inputContainer"
         style={{
           marginLeft: '6px',
           borderColor: 'rgb(222, 222, 222)',
@@ -74,9 +75,9 @@ const PostInfo = props => {
           overflow: 'hidden',
         }}>
         <TextareaAutosize
-          className='AutoSizeInput form-control border-0 m-1'
-          placeholder='Viết bình luận...'
-          autoCapitalize='sentences'
+          className="AutoSizeInput form-control border-0 m-1"
+          placeholder="Viết bình luận..."
+          autoCapitalize="sentences"
           style={{
             flexGrow: 1,
             flexShrink: 1,
@@ -88,18 +89,18 @@ const PostInfo = props => {
             boxSizing: 'border-box',
           }}
           defaultValue={''}
-          value= {contentData}
+          value={contentData}
           rows={1}
           maxRows={6}
           onChange={e => {
-            setContentData(e.target.value)
+            setContentData(e.target.value);
           }}
         />
         <Button
-          type='text'
-          icon={<SendOutlined color='primary' style={{marginRight: 10}} fontSize='default' />}
+          type="text"
+          icon={<SendOutlined color="primary" style={{marginRight: 10}} fontSize="default" />}
           onClick={() => {
-            handlePostComment()
+            handlePostComment();
           }}
         />
 
@@ -210,7 +211,7 @@ const PostInfo = props => {
         </div> */}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PostInfo
+export default PostInfo;
