@@ -5,9 +5,8 @@ import {BuilderPage} from './pages/BuilderPage';
 import {MyPage} from './pages/MyPage';
 import {DashboardPage} from './pages/DashboardPage';
 import * as auth from './modules/Auth/_redux/authRedux';
-import {connect} from 'react-redux';
+import {connect, useSelector} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';
-
 
 const GoogleMaterialPage = lazy(() => import('./modules/GoogleMaterialExamples/GoogleMaterialPage'));
 const ReactBootstrapPage = lazy(() => import('./modules/ReactBootstrapExamples/ReactBootstrapPage'));
@@ -18,13 +17,23 @@ const FriendsPage = lazy(() => import('./modules/Friends/pages/friendsPage'));
 const ChatsPage = lazy(() => import('./modules/Chats/pages/chatPage'));
 const GroupPage = lazy(() => import('./modules/Group/pages/GroupPage'));
 const ProfilePage = lazy(() => import('./modules/Profile/pages/ProfilePage'));
-const EventPage = lazy(() => import('./modules/Event/pages/EventPage'))
+const EventPage = lazy(() => import('./modules/Event/pages/EventPage'));
 
-export class BasePage extends Component {
-  componentWillMount = () => {
-    this.props.requestUser()
-  }
-  render() {
+function BasePage(props) {
+  // useEffect(() => {
+  //   console.log('Base page');
+  // }, []) // [] - is required if you need only one call
+  // https://reactjs.org/docs/hooks-reference.html#useeffect
+
+  console.log('BasePageBasePage');
+  const {user} = useSelector(state => state.auth);
+
+  useEffect(() => {
+    props.requestUser();
+  }, [props]);
+
+  if (!user) return <></>;
+
   return (
     <Suspense fallback={<LayoutSplashScreen />}>
       <Switch>
@@ -42,14 +51,13 @@ export class BasePage extends Component {
         <Route path="/newsfeed" component={NewfeedPage} />
         <Route path="/friends" component={FriendsPage} />
         <Route path="/chat" component={ChatsPage} />
-        <Route path="/groups" component={GroupPage}/>
-        <Route path="/profile" component={ProfilePage}/>
-        <Route path="/events" component={EventPage}/>
+        <Route path="/groups" component={GroupPage} />
+        <Route path="/profile" component={ProfilePage} />
+        <Route path="/events" component={EventPage} />
 
         <Redirect to="error/error-v1" />
       </Switch>
     </Suspense>
   );
 }
-}
-export default injectIntl(connect(null, auth.actions)(BasePage))
+export default injectIntl(connect(null, auth.actions)(BasePage));

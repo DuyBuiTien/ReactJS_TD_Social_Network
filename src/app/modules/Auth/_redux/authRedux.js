@@ -44,6 +44,7 @@ export const reducer = persistReducer(
       }
 
       case actionTypes.UserLoaded: {
+        configSocket();
         const {user} = action.payload;
         return {...state, user};
       }
