@@ -1,7 +1,9 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import "./Friends.scss"
+import { useHistory } from "react-router-dom"
 
 export const FriendsItem = props => {
+  const history = useHistory()
   const {data, TuChoiKetBan, DongYKetBan, TroChuyen, type, KetBan} = props;
   return (
     <div className="col-xl-4">
@@ -19,14 +21,11 @@ export const FriendsItem = props => {
               <div className="symbol symbol-lg-75">
                 <img alt="profile-img" className="profile-img" src="/media/users/avatar.jpg" />
               </div>
-              <div className="symbol symbol-lg-75 symbol-primary d-none">
-                <span className="font-size-h3 font-weight-boldest">{data.username}</span>
-              </div>
             </div>
             {/*end::Pic*/}
             {/*begin::Title*/}
             <div className="d-flex flex-column">
-              <span className="text-hover-primary font-size-h4 mb-0" style={{color: '#385898', cursor: 'pointer'}}>{data?.fullName ?? ''}</span>
+              <span className="text-hover-primary font-size-lg mb-0" onClick={() => history.push(`/profile/${data.username}`)} style={{color: '#385898', cursor: 'pointer'}}>{data?.fullName ?? ''}</span>
               <span className="text-muted">{data.position?.name ?? ''}</span>
               <span className="text-muted">{data.office?.name ?? ''}</span>
             </div>

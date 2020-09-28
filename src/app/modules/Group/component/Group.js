@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Container, Row, Col, Pagination, Button, Card, Jumbotron } from 'react-bootstrap';
+import { Container, Row, Col, Pagination, Button, Card, Jumbotron, Image } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
 import { requestGET, GLOBAL_URL } from '../../../basic/basicApi'
+import { toAbsoluteUrl, checkIsActive } from '../../../../_metronic/_helpers';
 
 export const Group = (props) => {
 
@@ -37,22 +38,22 @@ export const Group = (props) => {
 
   return (
     <Container fluid >
-      <Row style={{ backgroundColor: '#e1e2e1', display: 'flex', alignContent: 'center', justifyContent: 'center', height: '10rem' }}>
-        {/* <h style={{fontSize: "25px", fontWeight: "bold"}}>NHÓM</h> */}
-        <Jumbotron style={{ fontSize: "25px", fontWeight: "bold", padding: '1rem', margin: '0px' }}>NHÓM</Jumbotron>
+      <Row style={{ backgroundColor: '#e1e2e1', display: 'flex', alignContent: 'center', justifyContent: 'center', height: '10rem', position: 'relative' }}>
+        <Image fluid src="https://iqonic.design/themes/socialv/vue/dist/img/profile-bg7.cb17ce1e.jpg"></Image>
+        <Jumbotron style={{ fontSize: "25px", fontWeight: "bold", padding: '1rem', margin: '4rem', position: 'absolute', heigth: "2rem" }}>NHÓM</Jumbotron>
       </Row>
-      <Row style={{ marginTop: '1.5rem' }}>
+      <Row style={{ marginTop: '8rem' }}>
         {groupMem !== undefined && groupMem.map((item) => {
           console.log(item)
           return (
             <Col style={{ display: 'flex', justifyContent: 'space-around' }}>
               <Card style={{ width: '30rem', borderRadius: '0.5rem' }}>
                 <Card.Img
-                  src="https://iqonic.design/themes/socialv/vue/dist/img/profile-bg1.12dbfea2.jpg"
+                  src={toAbsoluteUrl('/media/svg/shapes/abstract-10.svg')}
                 ></Card.Img>
                 <Card.Body style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
                   <Card.Title>{item.name}</Card.Title>
-                  <Card.Text>{item.description == "" ? "Some quick example text" : item.description}</Card.Text>
+                  <Card.Text>{item.description}</Card.Text>
                   <Button variant="primary" size="sm" onClick={() => handleClick(item.id)}>Xem bài</Button>
                 </Card.Body>
               </Card>

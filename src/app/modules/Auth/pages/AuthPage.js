@@ -62,14 +62,14 @@ function AuthPage() {
         {/*begin::Content*/}
         <div className="flex-row-fluid d-flex flex-column position-relative p-7 overflow-hidden">
           {/*begin::Content header*/}
-          <div className="position-absolute top-0 right-0 text-right mt-5 mb-15 mb-lg-0 flex-column-auto justify-content-center py-5 px-10">
+          {/* <div className="position-absolute top-0 right-0 text-right mt-5 mb-15 mb-lg-0 flex-column-auto justify-content-center py-5 px-10">
             <span className="font-weight-bold text-dark-50">
               <FormattedMessage id="AUTH.GENERAL.NO_ACCOUNT" />
             </span>
             <Link to="/auth/registration" className="font-weight-bold ml-2" id="kt_login_signup">
               <FormattedMessage id="AUTH.REGISTER.TITLE" />
             </Link>
-          </div>
+          </div> */}
           {/*end::Content header*/}
 
           {/* begin::Content body */}

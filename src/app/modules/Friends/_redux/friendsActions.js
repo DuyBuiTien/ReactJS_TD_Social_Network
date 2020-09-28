@@ -94,7 +94,7 @@ export const dongYKetBan = (id) => dispatch => {
     });
 };
 
-export const KetBan = (id,username) => dispatch => {
+export const KetBan = (username) => dispatch => {
   dispatch(actions.startCall({callType: callTypes.action}));
   return requestFromServer
     .KetBan(username)

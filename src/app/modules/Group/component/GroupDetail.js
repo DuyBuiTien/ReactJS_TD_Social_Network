@@ -58,7 +58,7 @@ export const GroupDetail = props => {
     <>
       <div id="list">
         {data.map((item, i) => (
-          <PostItem key={i} itemData={item} />
+          <PostItem key={i} itemData={item} load = {loadMore} setLoad = {setLoadMore} />
         ))}
       </div>
     </>

@@ -64,7 +64,7 @@ export function getInitLayoutConfig() {
     loader: {
       enabled: true,
       type: '', // default|spinner-message|spinner-logo
-      logo: toAbsoluteUrl('/media/logos/logo-dark-sm.png'),
+      logo: toAbsoluteUrl('/media/logos/smartcity_w.svg'),
       message: 'Please wait...',
     },
     // page toolbar
@@ -152,7 +152,7 @@ export function getInitLayoutConfig() {
     },
     footer: {
       self: {
-        fixed: true,
+        fixed: false,
         width: 'fluid',
       },
     },
@@ -204,13 +204,13 @@ export function getInitLayoutConfig() {
         },
       },
       'quick-panel': {
-        display: true,
+        display: false,
         offcanvas: {
           directions: 'right',
         },
       },
       chat: {
-        display: true,
+        display: false,
       },
       toolbar: {
         display: true,
