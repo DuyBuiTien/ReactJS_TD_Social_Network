@@ -31,6 +31,8 @@ const ChatContentFooter = props => {
 
   let {conversation, inputMessage} = currentState;
 
+  console.log(inputMessage);
+
   const handleTypingOff = () => {
     /* emitTypingOff({
       info: currentUser,
@@ -104,14 +106,22 @@ const ChatContentFooter = props => {
         }
       });
 
-      dispatch(
+      console.log('GUI ANH');
+      console.log({
+        images,
+        type: 'image',
+        receiver: conversation.receiver.id,
+        conversationType: conversation.conversationType,
+      });
+
+      /* dispatch(
         actions.sendMessage({
           images,
           type: 'image',
           receiver: conversation.receiver.id,
           conversationType: conversation.conversationType,
         }),
-      );
+      ); */
 
       onInputImageListChange({fileList: []});
     }
@@ -121,6 +131,7 @@ const ChatContentFooter = props => {
     // Nếu đang uploading thì không gửi
     let uploading = false;
 
+    console.log('FILE');
     console.log(inputMessage.files);
 
     inputMessage.files.forEach(item => {
@@ -138,6 +149,14 @@ const ChatContentFooter = props => {
             path: item.response.name,
           });
         }
+      });
+
+      console.log('gui file');
+      console.log({
+        files,
+        type: 'file',
+        receiver: conversation.receiver.id,
+        conversationType: conversation.conversationType,
       });
 
       dispatch(
@@ -179,7 +198,7 @@ const ChatContentFooter = props => {
           <Upload
             accept="image/*"
             name="photos"
-            multiple={true}
+            multiple={false}
             fileList={inputMessage?.images ?? []}
             headers={{
               Authorization: `Bearer ${isAuthenticated()}`,
@@ -187,7 +206,18 @@ const ChatContentFooter = props => {
             action={`${process.env.REACT_APP_GLOBAL_URL}/v1/message/photos`}
             showUploadList={false}
             onChange={files => {
-              onInputImageListChange(files);
+              console.log('ONCHANGE: ');
+              console.log(files);
+
+              if (files.file.status !== 'uploading') {
+                console.log(files.file, files.fileList);
+              }
+              if (files.file.status === 'done') {
+                console.log('THANH CONG');
+                onInputImageListChange(files);
+              } else if (files.file.status === 'error') {
+                console.log('LOI');
+              }
             }}>
             <span className="btn btn-clean btn-icon btn-md mr-1">
               <i className="flaticon2-photograph icon-lg" />
@@ -196,7 +226,7 @@ const ChatContentFooter = props => {
           <Upload
             accept="text/plain, application/pdf, .csv, .docx, .xlsx"
             name="files"
-            multiple={true}
+            multiple={false}
             fileList={inputMessage?.files ?? []}
             headers={{
               Authorization: `Bearer ${isAuthenticated()}`,
@@ -204,7 +234,20 @@ const ChatContentFooter = props => {
             action={`${process.env.REACT_APP_GLOBAL_URL}/v1/message/files`}
             showUploadList={false}
             onChange={files => {
-              onInputFileListChange(files);
+              console.log('ONCHANGE: ');
+              console.log(files);
+
+              if (files.file.status !== 'uploading') {
+                console.log(files.file, files.fileList);
+              }
+              if (files.file.status === 'done') {
+                console.log('THANH CONG');
+                onInputFileListChange(files);
+              } else if (files.file.status === 'error') {
+                console.log('LOI');
+              }
+
+              //    onInputFileListChange(files);
             }}>
             <span className="btn btn-clean btn-icon btn-md">
               <i className="flaticon-attachment icon-lg" />
