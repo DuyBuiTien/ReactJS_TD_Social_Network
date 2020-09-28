@@ -2,7 +2,7 @@
     "name": "td_social_network",
     "version": "7.1.0",
     "private": true,
-    "homepage": "https://chat.hanhchinhcong.net",
+    "homepage": "https://dieuhanh.namdinh.gov.vn/sites/dashboard/SitePages/ttnb",
     "scripts": {
         "start": "react-scripts start -o",
         "build": "react-scripts build",

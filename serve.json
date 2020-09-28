@@ -3,13 +3,13 @@
   "redirects": [
     {
       "source": "/",
-      "destination": "/metronic/preview/react/demo1"
+      "destination": "/sites/dashboard/SitePages/ttnb"
     }
   ],
   "rewrites": [
     {
-      "source": "/metronic/preview/react/demo1/**",
-      "destination": "/metronic/preview/react/demo1/index.html"
+      "source": "/sites/dashboard/SitePages/ttnb/**",
+      "destination": "/sites/dashboard/SitePages/ttnb/default.aspx"
     }
   ]
 }

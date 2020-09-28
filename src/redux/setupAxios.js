@@ -7,7 +7,7 @@ export default function setupAxios(axios, store) {
       if (!tokenApi) {
         tokenApi = process.env.REACT_APP_TOKEN
       }
-
+      console.log(tokenApi)
       if (tokenApi) {
         config.headers.Authorization = `Bearer ${tokenApi}`;
       }

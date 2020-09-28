@@ -5,8 +5,8 @@
  * components (e.g: `src/app/modules/Auth/pages/AuthPage`, `src/app/BasePage`).
  */
 
-import React, {useEffect} from 'react';
-import {Redirect, Switch, Route} from 'react-router-dom';
+import React, {useEffect, Component} from 'react';
+import {Redirect, Switch, Route, HashRouter} from 'react-router-dom';
 import {shallowEqual, useSelector} from 'react-redux';
 import {Layout} from '../_metronic/layout';
 import BasePage from './BasePage';
@@ -15,30 +15,29 @@ import ErrorsPage from './modules/ErrorsExamples/ErrorsPage';
 
 import {configSocket} from '../redux/rootSocket';
 
-export function Routes() {
+export default class Routes extends Component {
+  componentWillMount = () => {
+    configSocket()
+  }
+  render() {
+    return (
+      <Switch>
+        {/* {!isAuthorized ? (
+          <Route>
+            <AuthPage />
+          </Route>
+        ) : (
+          <Redirect from="/auth" to="/" />
+        )} */}
 
-  useEffect(() => {
-      configSocket();
-    return () => {};
-  }, []);
+        <Route path="/error" component={ErrorsPage} />
+        <Route path="/logout" component={Logout} />
 
-  return (
-    <Switch>
-      {/* {!isAuthorized ? (
-        <Route>
-          <AuthPage />
-        </Route>
-      ) : (
-        <Redirect from="/auth" to="/" />
-      )} */}
+          <Layout>
+            <BasePage />
+          </Layout>
 
-      <Route path="/error" component={ErrorsPage} />
-      <Route path="/logout" component={Logout} />
-
-        <Layout>
-          <BasePage />
-        </Layout>
-
-    </Switch>
-  );
+      </Switch>
+    );
+  }
 }
