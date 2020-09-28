@@ -1,38 +1,34 @@
-exports.isAuthenticated = () => {
-  if (typeof window === 'undefined') return true;
-  let data = window.localStorage.getItem('Token');
+import Cookies from 'js-cookie';
 
-  if (data) {
-    return true;
+export const isAuthenticated = () => {
+  if (typeof window === 'undefined') return true;
+  var tokenApi = Cookies.get('token')
+  if (!tokenApi) {
+    tokenApi = process.env.REACT_APP_TOKEN
   }
-  return false;
+  return tokenApi;
 };
 
-exports.getAccessToken = () => {
+export const getAccessToken = () => {
   if (typeof window === 'undefined') return true;
-  let token = window.localStorage.getItem('Token');
-
-  if (token) {
-    let data = JSON.parse(token).accessToken;
-    return data;
+  var tokenApi = Cookies.get('token')
+  if (!tokenApi) {
+    tokenApi = process.env.REACT_APP_TOKEN
   }
-  return null;
+  return tokenApi;
 };
 
-exports.getRefreshToken = () => {
+export const getRefreshToken = () => {
   if (typeof window === 'undefined') return true;
 
-  let token = window.localStorage.getItem('Token');
-
-  if (token) {
-    let data = JSON.parse(token).refreshToken;
-    return data;
+  var tokenApi = Cookies.get('token')
+  if (!tokenApi) {
+    tokenApi = process.env.REACT_APP_TOKEN
   }
-
-  return null;
+  return tokenApi;
 };
 
-exports.isTokenExpired = TokenObject => {
+export const isTokenExpired = TokenObject => {
   const currentTimestamp = new Date().getTime();
   const {exp} = TokenObject;
   if (!exp) return false;

@@ -27,7 +27,7 @@ export default function NewsPage() {
               {/*end::Pic*/}
               {/*begin::Title*/}
               <div className="d-flex flex-column">
-                <span className="text-hover-primary font-size-h4 mb-0" style={{color: '#385898', cursor: 'pointer'}}>Quản trị sở TTTT</span>
+                <span className="text-hover-primary font-size-lg mb-0" style={{color: '#385898', cursor: 'pointer'}}>Quản trị sở TTTT</span>
                 <span className="text-muted">Hôm nay</span>
               </div>
               {/*end::Title*/}
@@ -42,7 +42,7 @@ export default function NewsPage() {
               {/*end::Pic*/}
               {/*begin::Title*/}
               <div className="d-flex flex-column">
-                <span className="text-hover-primary font-size-h4 mb-0" style={{color: '#385898', cursor: 'pointer'}}>Quản trị hệ thống</span>
+                <span className="text-hover-primary font-size-lg mb-0" style={{color: '#385898', cursor: 'pointer'}}>Quản trị hệ thống</span>
                 <span className="text-muted">Ngày mai</span>
               </div>
               {/*end::Title*/}

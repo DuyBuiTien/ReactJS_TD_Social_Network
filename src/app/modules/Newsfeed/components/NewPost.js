@@ -29,11 +29,11 @@ const NewPost = props => {
     var newData = {
       contentData: contentData,
       groupId: groupSelected,
-      attachments: [
+      /* attachments: [
         {
           id: 6,
         },
-      ],
+      ], */
     }
     console.log(newData)
     var result = await requestPOST(`${GLOBAL_URL}/v1/post/CreatePost`, newData).then(res => {
@@ -117,7 +117,7 @@ const NewPost = props => {
               showSearch
               style={{width: '100%', marginTop:10}}
               bordered = {false}
-              placeholder='Select a person'
+              placeholder='Lựa chọn nhóm'
               optionFilterProp='children'
               onChange={(value)=>{setGroupSelected(value)}}
               >

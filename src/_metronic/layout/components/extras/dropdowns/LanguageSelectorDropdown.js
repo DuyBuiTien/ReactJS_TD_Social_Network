@@ -32,7 +32,7 @@ export function LanguageSelectorDropdown() {
         <OverlayTrigger
           placement="bottom"
           overlay={
-            <Tooltip id="language-panel-tooltip">Select Language</Tooltip>
+            <Tooltip id="language-panel-tooltip">Lựa chọn ngôn ngữ</Tooltip>
           }
         >
           <div className="btn btn-icon btn-hover-transparent-white btn-dropdown btn-lg mr-1 pulse pulse-white">
