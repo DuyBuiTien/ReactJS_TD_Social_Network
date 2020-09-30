@@ -5,10 +5,10 @@ import { useLocation } from 'react-router-dom'
 
 import { requestGET, GLOBAL_URL } from '../../../basic/basicApi';
 import { toAbsoluteUrl, checkIsActive } from '../../../../_metronic/_helpers';
-import {TimelineDetail} from './TimelineDetail';
+import {TimelineDetail} from './Detail/TimelineDetail';
+import {AboutDetail} from './About/AboutDetail'
 
 export const ProfileDetail = () => {
-
   const { user } = useSelector(state => state.auth);
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
@@ -55,7 +55,8 @@ export const ProfileDetail = () => {
 
       <Row style={{marginTop: '2rem'}}>
         {
-          selected === "timeline" && <TimelineDetail></TimelineDetail>
+          selected === "timeline" && <TimelineDetail/> ||
+          selected === "about" && <AboutDetail/>
         }
       </Row>
     </Container>
