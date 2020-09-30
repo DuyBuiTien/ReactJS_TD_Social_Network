@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Row, Col, Card, CardGroup } from 'react-bootstrap'
+import { Container, Row, Col, Card, Figure } from 'react-bootstrap'
 import ListPostDetail from './ListPostDetail'
 import NewPostDetail from './NewPostDetail'
 
@@ -23,35 +23,35 @@ export const TimelineDetail = () => {
           <Card style={{marginTop: '1rem'}}>
             <Card.Header>Friends</Card.Header>
             <Card.Body style={{ display: 'inline-block', justifyContent: 'space-around' }}>
-              <div style={{ width: '30%', height: '30%' }}>
-                <Card.Img  src="/media/users/100_1.jpg"></Card.Img>
-                <p>Anna Rexia</p>
-              </div>
+              <Figure style={{ width: '30%', height: '30%', margin: '1.5%' }}>
+                <Figure.Image style={{borderRadius: '5%'}} src="/media/users/100_1.jpg"></Figure.Image>
+                <Figure.Caption>Anna Rexia</Figure.Caption>
+              </Figure>
 
-              <div style={{ width: '30%', height: '30%' }}>
-                <Card.Img  src="/media/users/100_1.jpg"></Card.Img>
-                <p>Anna Rexia</p>
-              </div>
+              <Figure style={{ width: '30%', height: '30%', margin: '1.5%' }}>
+                <Figure.Image style={{borderRadius: '5%'}} src="/media/users/100_8.jpg"></Figure.Image>
+                <Figure.Caption>Anna Rexia</Figure.Caption>
+              </Figure>
 
-              <div style={{ width: '30%', height: '30%' }}>
-                <Card.Img  src="/media/users/100_1.jpg"></Card.Img>
-                <p>Anna Rexia</p>
-              </div>
+              <Figure style={{ width: '30%', height: '30%', margin: '1.5%' }}>
+                <Figure.Image style={{borderRadius: '5%'}} src="/media/users/100_2.jpg"></Figure.Image>
+                <Figure.Caption>Anna Rexia</Figure.Caption>
+              </Figure>
 
-              <div style={{ width: '30%', height: '30%' }}>
-                <Card.Img  src="/media/users/100_1.jpg"></Card.Img>
-                <p>Anna Rexia</p>
-              </div>
+              <Figure style={{ width: '30%', height: '30%', margin: '1.5%' }}>
+                <Figure.Image style={{borderRadius: '5%'}} src="/media/users/100_3.jpg"></Figure.Image>
+                <Figure.Caption>Anna Rexia</Figure.Caption>
+              </Figure>
 
-              <div style={{ width: '30%', height: '30%' }}>
-                <Card.Img  src="/media/users/100_1.jpg"></Card.Img>
-                <p>Anna Rexia</p>
-              </div>
+              <Figure style={{ width: '30%', height: '30%', margin: '1.5%' }}>
+                <Figure.Image style={{borderRadius: '5%'}} src="/media/users/100_4.jpg"></Figure.Image>
+                <Figure.Caption>Anna Rexia</Figure.Caption>
+              </Figure>
 
-              <div style={{ width: '30%', height: '30%' }}>
-                <Card.Img  src="/media/users/100_1.jpg"></Card.Img>
-                <p>Anna Rexia</p>
-              </div>
+              <Figure style={{ width: '30%', height: '30%', margin: '1.5%' }}>
+                <Figure.Image style={{borderRadius: '5%'}} src="/media/users/100_5.jpg"></Figure.Image>
+                <Figure.Caption>Anna Rexia</Figure.Caption>
+              </Figure>
             </Card.Body>
           </Card>
         </Col>

@@ -7,6 +7,7 @@ import { requestGET, GLOBAL_URL } from '../../../basic/basicApi';
 import { toAbsoluteUrl, checkIsActive } from '../../../../_metronic/_helpers';
 import {TimelineDetail} from './Detail/TimelineDetail';
 import {AboutDetail} from './About/AboutDetail'
+import { FriendsDetail } from './Friends/FriendsDetail'
 
 export const ProfileDetail = () => {
   const { user } = useSelector(state => state.auth);
@@ -47,16 +48,14 @@ export const ProfileDetail = () => {
           <Nav.Item>
             <Nav.Link style={{ height: '5rem' }} onSelect={() => setSelected("friends")} eventKey="friends">Friends</Nav.Link>
           </Nav.Item>
-          <Nav.Item>
-            <Nav.Link style={{ height: '5rem' }} onSelect={() => setSelected("photos")} eventKey="photos">Photos</Nav.Link>
-          </Nav.Item>
         </Nav>
       </Row>
 
       <Row style={{marginTop: '2rem'}}>
         {
           selected === "timeline" && <TimelineDetail/> ||
-          selected === "about" && <AboutDetail/>
+          selected === "about" && <AboutDetail data={data}/> ||
+          selected === "friends" && <FriendsDetail data={data}/>
         }
       </Row>
     </Container>

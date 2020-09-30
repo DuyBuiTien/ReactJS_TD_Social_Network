@@ -6,8 +6,6 @@ import {vi} from 'date-fns/locale';
 
 const PostInfo = props => {
   const {data} = props;
-  console.log('data');
-  console.log(data);
   return (
     <div className="d-flex align-items-center justify-content-between">
       <div className="symbol symbol-40 symbol-circle symbol-light-success mr-2">

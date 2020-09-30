@@ -14,7 +14,6 @@ const PostComment = props => {
   const [dataComment, setDataComment] = useState([]);
   const {user} = useSelector(state => state.auth);
 
-  console.log(data);
   useEffect(() => {
     const fetchDataComment = async () => {
       var res = await requestGET(`${GLOBAL_URL}/v1/comment/GetListComment?postId=${data.id}&page=0&perpage=20`);
