@@ -1,6 +1,3 @@
-console.log('aaa');
-console.log(process.env.REACT_APP_API_URL);
-
 export function removeCSSClass(ele, cls) {
   const reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
   ele.className = ele.className.replace(reg, ' ');

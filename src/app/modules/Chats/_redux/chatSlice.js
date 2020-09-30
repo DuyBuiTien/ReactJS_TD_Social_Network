@@ -120,20 +120,25 @@ export const chatSlice = createSlice({
       }
 
       // Tìm index của item hiện tại trong danh sách  mesages
-      let receivedMessageIndex = '';
-      if (message.conversationType === 'ChatGroup') {
-        // Xử lý chat group
-        receivedMessageIndex = state.conversations.findIndex(item => {
-          return message.chatGroupId === item.chatGroupId;
-        });
-      } else if (message.conversationType === 'User') {
-        // xử lý chat riêng tư
-        receivedMessageIndex = state.conversations.findIndex(item => {
-          return (
-            (message.senderId === item.senderId && message.receiverId === item.receiverId) ||
-            (message.senderId === item.receiverId && message.receiverId === item.senderId)
-          );
-        });
+      let receivedMessageIndex = -1;
+      try {
+        if (message.conversationType === 'ChatGroup') {
+          // Xử lý chat group
+          receivedMessageIndex = state.conversations.findIndex(item => {
+            return message.chatGroupId === item.chatGroupId;
+          });
+        } else if (message.conversationType === 'User') {
+          // xử lý chat riêng tư
+          receivedMessageIndex = state.conversations.findIndex(item => {
+            return (
+              (message.senderId === item.senderId && message.receiverId === item.receiverId) ||
+              (message.senderId === item.receiverId && message.receiverId === item.senderId)
+            );
+          });
+        }
+      } catch (error) {
+        console.log('error');
+        console.log(error);
       }
 
       if (receivedMessageIndex === 0) {
@@ -173,6 +178,19 @@ export const chatSlice = createSlice({
     INPUT_MESSAGE_CHANGE: (state, action) => {
       let payload = action.payload;
       state.inputMessage.text = payload;
+    },
+    INPUT_IMAGE_LIST_CHANGE: (state, action) => {
+      let payload = action.payload;
+
+      console.log('payload:::');
+      console.log(payload);
+
+      state.inputMessage.images = payload;
+    },
+
+    INPUT_FILE_LIST_CHANGE: (state, action) => {
+      let payload = action.payload;
+      state.inputMessage.files = payload;
     },
 
     // getProductById

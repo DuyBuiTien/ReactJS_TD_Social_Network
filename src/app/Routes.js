@@ -7,20 +7,24 @@
 
 import React, {useEffect} from 'react';
 import {Redirect, Switch, Route} from 'react-router-dom';
-import {shallowEqual, useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Layout} from '../_metronic/layout';
 import BasePage from './BasePage';
 import {Logout, AuthPage} from './modules/Auth';
 import ErrorsPage from './modules/ErrorsExamples/ErrorsPage';
 
+import {actions} from '../app/modules/Auth/_redux/authRedux';
 import {configSocket} from '../redux/rootSocket';
 
 export function Routes() {
+  const dispatch = useDispatch();
 
+  const {user} = useSelector(state => state.auth);
   useEffect(() => {
-      configSocket();
-    return () => {};
+    dispatch(actions.requestUser());
   }, []);
+
+  if (!user) return <></>;
 
   return (
     <Switch>
@@ -35,10 +39,9 @@ export function Routes() {
       <Route path="/error" component={ErrorsPage} />
       <Route path="/logout" component={Logout} />
 
-        <Layout>
-          <BasePage />
-        </Layout>
-
+      <Layout>
+        <BasePage />
+      </Layout>
     </Switch>
   );
 }

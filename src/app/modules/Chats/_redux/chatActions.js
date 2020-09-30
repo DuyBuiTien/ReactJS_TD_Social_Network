@@ -57,7 +57,17 @@ export const INPUT_MESSAGE_CHANGE = message => dispatch => {
   return dispatch(actions.INPUT_MESSAGE_CHANGE(message));
 };
 
-export const fetchConversation = (id, skip, limit = 20) => dispatch => {
+export const INPUT_IMAGE_LIST_CHANGE = message => dispatch => {
+  console.log('FILE IMAGE')
+  console.log(message)
+  return dispatch(actions.INPUT_IMAGE_LIST_CHANGE(message));
+};
+
+export const INPUT_FILE_LIST_CHANGE = message => dispatch => {
+  return dispatch(actions.INPUT_FILE_LIST_CHANGE(message));
+};
+
+export const fetchConversation = (id, skip = 0, limit = 20) => dispatch => {
   if (!id) {
     return dispatch(actions.conversationFetched({conversation: undefined}));
   }
